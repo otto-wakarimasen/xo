@@ -1,0 +1,231 @@
+<head>
+	<meta charset="UTF-8">
+	<title>Simple XO Game</title>
+<style>
+* {
+	margin: 0;
+	font-family: Arial, Helvetica, sans-serif;
+	box-sizing: border-box;
+}
+.mainXO {
+	display: flex;
+	justify-content: center;
+	margin-top: 3em;
+}
+.gameContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: 1px solid black;
+	padding: 1.5em;
+	background-color: rgb(191,188,183);
+	border-radius: 1em;
+	border-bottom-right-radius: 8em;
+	border-bottom-width: 3px;
+}
+.containerXO {
+        display: flex;
+        flex-wrap: wrap;
+        width: 308px;
+        height: 308px;
+        border: 1px solid black;
+		color: white;
+		background-color: rgb(172, 202, 179);
+		border-radius: 1em;
+		box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+.insiderXO {
+        margin: 1em;
+        height: 70px;
+        width: 70px;
+        background-color: black;
+        border-radius: 50%;
+        border: 1px solid black;
+		cursor: pointer;
+		box-shadow: 0 0 5px rgba(0,0,0,0.4);
+}
+
+.redXO { background-color: red; border-radius: 0; transform: rotate(45deg); transition: all 0.5s ease-out; box-shadow: inset 0 0 3px rgba(0,0,0,0.5);}
+.blueXO { background-color: blue; border-radius: 0; transform: rotate(45deg); transition: all 0.5s ease-out; box-shadow: inset 0 0 3px rgba(0,0,0,0.5);}
+
+.btnXO {
+	margin: 15px;
+	background-color: #800a46;
+	color: whitesmoke;
+	border: 1px solid black;
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	outline: none;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+.btnXO:hover {
+	background-color: #921b51;
+	box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+}
+.winnerXO {
+	height: 2em;
+	width: 170px;
+	text-align: center;
+	line-height: 2em;
+	border-radius: 5px;
+	border: 1px solid transparent;
+}
+.subXO {
+	display: flex;
+	align-items: center;
+}
+</style>
+</head>
+<body>
+<div class="mainXO">
+<div class="gameContainer">
+	<div class="containerXO">
+		<div class="insiderXO"></div>
+		<div class="insiderXO"></div>
+		<div class="insiderXO"></div>
+		<div class="insiderXO"></div>
+		<div class="insiderXO"></div>
+		<div class="insiderXO"></div>
+		<div class="insiderXO"></div>
+		<div class="insiderXO"></div>
+		<div class="insiderXO"></div>
+	</div>
+	<div class="subXO">
+		<input type="button" onclick="defaulter()" value="Сбросить" class="btnXO"></input>
+		<div id="winnerXO" class="winnerXO"></div>
+	</div>
+</div>
+</div>
+<script>
+	let congrat = document.getElementById('winnerXO');
+	
+	let bClicked = true;
+	function clickChecker() {bClicked = !bClicked;}
+
+	let bGameOv = false;
+	function gameOver() {bGameOv = true;}
+			
+	function redWins() {
+	congrat.style.backgroundColor="red";
+	congrat.style.color="whitesmoke";
+	congrat.innerHTML="Победил красный!"
+	congrat.style.borderColor="black";}
+	
+	function blueWins() {
+	congrat.style.backgroundColor="blue";
+	congrat.style.color="whitesmoke";
+	congrat.innerHTML="Победил синий!";
+	congrat.style.borderColor="black";}
+	
+	function noOneWins() {
+	congrat.style.backgroundColor="#0e101d";
+	congrat.style.color="whitesmoke";
+	congrat.innerHTML="Ничья!";
+	congrat.style.borderColor="black";}
+	
+	function winFinder() {
+	let winFin = document.querySelectorAll('.insiderXO');
+		if (winFin[0].classList.contains('redXO') &&
+				winFin[1].classList.contains('redXO') &&
+				winFin[2].classList.contains('redXO'))
+				{gameOver(); redWins();}
+		else if (winFin[3].classList.contains('redXO') &&
+				winFin[4].classList.contains('redXO') &&
+				winFin[5].classList.contains('redXO'))
+				{gameOver(); redWins();}
+		else if	(winFin[6].classList.contains('redXO') &&
+				winFin[7].classList.contains('redXO') &&
+				winFin[8].classList.contains('redXO'))
+				{gameOver(); redWins();}
+		else if	(winFin[0].classList.contains('redXO') &&
+				winFin[3].classList.contains('redXO') &&
+				winFin[6].classList.contains('redXO'))
+				{gameOver(); redWins();}
+		else if	(winFin[1].classList.contains('redXO') &&
+				winFin[4].classList.contains('redXO') &&
+				winFin[7].classList.contains('redXO'))
+				{gameOver(); redWins();}
+		else if	(winFin[2].classList.contains('redXO') &&
+				winFin[5].classList.contains('redXO') &&
+				winFin[8].classList.contains('redXO'))
+				{gameOver(); redWins();}
+		else if	(winFin[0].classList.contains('redXO') &&
+				winFin[4].classList.contains('redXO') &&
+				winFin[8].classList.contains('redXO'))
+				{gameOver(); redWins();}
+		else if	(winFin[2].classList.contains('redXO') &&
+				winFin[4].classList.contains('redXO') &&
+				winFin[6].classList.contains('redXO')) 
+				{gameOver(); redWins();}
+		else if (winFin[0].classList.contains('blueXO') &&
+				winFin[1].classList.contains('blueXO') &&
+				winFin[2].classList.contains('blueXO'))
+				{gameOver(); blueWins();}
+		else if	(winFin[3].classList.contains('blueXO') &&
+				winFin[4].classList.contains('blueXO') &&
+				winFin[5].classList.contains('blueXO'))
+				{gameOver(); blueWins();}
+		else if	(winFin[6].classList.contains('blueXO') &&
+				winFin[7].classList.contains('blueXO') &&
+				winFin[8].classList.contains('blueXO'))
+				{gameOver(); blueWins();}
+		else if	(winFin[0].classList.contains('blueXO') &&
+				winFin[3].classList.contains('blueXO') &&
+				winFin[6].classList.contains('blueXO'))
+				{gameOver(); blueWins();}
+		else if	(winFin[1].classList.contains('blueXO') &&
+				winFin[4].classList.contains('blueXO') &&
+				winFin[7].classList.contains('blueXO'))
+				{gameOver(); blueWins();}
+		else if	(winFin[2].classList.contains('blueXO') &&
+				winFin[5].classList.contains('blueXO') &&
+				winFin[8].classList.contains('blueXO'))
+				{gameOver(); blueWins();}
+		else if	(winFin[0].classList.contains('blueXO') &&
+				winFin[4].classList.contains('blueXO') &&
+				winFin[8].classList.contains('blueXO'))
+				{gameOver(); blueWins();}
+		else if	(winFin[2].classList.contains('blueXO') &&
+				winFin[4].classList.contains('blueXO') &&
+				winFin[6].classList.contains('blueXO'))
+				{gameOver(); blueWins();}
+	}
+	
+	function moveMaker() {
+		if(!bGameOv) {
+			if(!this.classList.contains('redXO') & !this.classList.contains('blueXO')) {
+				if(!bClicked) {this.classList.add('blueXO')}
+				else {this.classList.add('redXO');}
+			clickChecker();
+			}
+		}
+	}
+	
+	function noOneWinsChecker() {
+	let reds = document.querySelectorAll('.redXO').length;
+		if (reds==5 && !bGameOv) {noOneWins();}
+	}
+	
+	let insidersXO = document.querySelectorAll('.insiderXO'),
+	index, insiderXO;
+		for (index = 0; index < insidersXO.length; index++) {
+		insiderXO = insidersXO[index];
+		insiderXO.addEventListener('click', moveMaker);
+		insiderXO.addEventListener('click', winFinder);
+		insiderXO.addEventListener('click', noOneWinsChecker);}
+			
+	function defaulter() {
+		let elementsToDef = document.querySelectorAll('.insiderXO'), i, elem;
+		for (i=0;i<elementsToDef.length;i++) {
+			elem = elementsToDef[i];
+			elem.className = 'insiderXO';}
+			
+			congrat.innerHTML= '';
+			congrat.style.backgroundColor="transparent";
+			congrat.style.borderColor="transparent";
+			bGameOv = false;
+			bClicked = true;
+			}	
+</script>
+</body>
